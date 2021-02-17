@@ -2,7 +2,19 @@
 
 PROG=  testpat
 MAN=   testpat.6
-DPADD=	${LIBMATH} ${LIBCURSES} ${LIBTERMINFO}
-LDADD=	-lcurses -lm -lterminfo
+SRCS=  testpat.c
 
-.include <bsd.prog.mk>
+all: $(PROG)
+
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(STRIP) $(PROG)
+
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

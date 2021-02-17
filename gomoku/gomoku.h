@@ -35,7 +35,7 @@
  */
 
 #include <sys/types.h>
-#include <sys/endian.h>
+#include <sys/_endian.h>
 #include <stdio.h>
 
 /* board dimensions */

@@ -30,6 +30,14 @@
 #ifndef ARRAY_H
 #define ARRAY_H
 
+#if defined(__GNUC__) && defined(__GNUC_STDC_INLINE__)
+#define	__c99inline	extern __attribute__((__gnu_inline__)) __inline
+#elif defined(__GNUC__)
+#define	__c99inline	extern __inline
+#elif defined(__STDC_VERSION__) || defined(__lint__)
+#define	__c99inline	__inline
+#endif
+
 #define ARRAYS_CHECKED
 
 #ifdef ARRAYS_CHECKED

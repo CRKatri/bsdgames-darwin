@@ -2,5 +2,11 @@
 #	@(#)Makefile	8.1 (Berkeley) 5/31/93
 
 SUBDIR=	snake snscore
+TOPTARGETS= all clean install
 
-.include <bsd.subdir.mk>
+$(TOPTARGETS): $(SUBDIR)
+
+$(SUBDIR):
+	$(MAKE) -C $@ $(MAKECMDGOALS)
+
+.PHONY: $(TOPTARGETS) $(SUBDIR)

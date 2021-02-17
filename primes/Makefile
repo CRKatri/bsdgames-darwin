@@ -4,7 +4,18 @@
 PROG=		primes
 SRCS=		pattern.c pr_tbl.c primes.c spsp.c
 MAN=		primes.6
-DPADD=		${LIBM}
-LDADD=		-lm
 
-.include <bsd.prog.mk>
+all: $(PROG)
+
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS)
+	$(STRIP) $(PROG)
+
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

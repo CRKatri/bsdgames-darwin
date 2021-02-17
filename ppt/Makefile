@@ -1,10 +1,19 @@
 #	$NetBSD: Makefile,v 1.6 2002/09/18 06:16:41 lukem Exp $
 #	@(#)Makefile	8.1 (Berkeley) 5/31/93
 
-NOMAN=		# defined
-
 PROG=		ppt
-HIDEGAME=	hidegame
+SRCS=		ppt.c
 
-.include <bsd.prog.mk>
+all: $(PROG)
 
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS)
+	$(STRIP) $(PROG)
+
+install: $(PROG)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

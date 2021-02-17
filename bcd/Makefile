@@ -4,6 +4,21 @@
 PROG=	bcd
 MAN=	bcd.6
 MLINKS=	bcd.6 morse.6 bcd.6 ppt.6
-HIDEGAME=hidegame
+SRCS= bcd.c
 
-.include <bsd.prog.mk>
+all: $(PROG)
+
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS)
+	$(STRIP) $(PROG)
+
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(LN) -sf $(MAN).zst $(DESTDIR)/usr/share/man/man6/morse.6
+	$(LN) -sf $(MAN).zst $(DESTDIR)/usr/share/man/man6/ppt.6
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

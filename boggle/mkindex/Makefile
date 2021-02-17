@@ -1,9 +1,9 @@
-#	$NetBSD: Makefile,v 1.11 2018/05/01 19:59:44 christos Exp $
-#	@(#)Makefile	8.1 (Berkeley) 6/11/93
+mkindex: mkindex.c
+	clang -o mkindex mkindex.c -I../boggle
 
-.include <bsd.hostinit.mk>
+clean:
+	rm -f mkindex
 
-HOSTPROG=	mkindex
-HOST_CPPFLAGS+=	-I${.CURDIR}/../boggle
+all: mkindex
 
-.include <bsd.hostprog.mk>
+.PHONY: all clean

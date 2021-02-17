@@ -40,6 +40,8 @@ __RCSID("$NetBSD: testpat.c,v 1.4 2021/01/08 15:16:04 christos Exp $");
 #include <string.h>
 #include <time.h>
 
+#define __arraycount(a) (sizeof(a) / sizeof(*(a)))
+
 static int colour_list[6] = {
 	COLOR_YELLOW,
 	COLOR_CYAN,

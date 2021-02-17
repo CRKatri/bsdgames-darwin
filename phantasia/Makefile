@@ -1,58 +1,48 @@
 #	$NetBSD: Makefile,v 1.37 2014/06/14 20:49:37 mrg Exp $
 #	@(#)Makefile	8.1 (Berkeley) 5/31/93
 
-.include <bsd.own.mk>
-
 PROG=	phantasia
 SRCS=	fight.c gamesupport.c interplayer.c io.c main.c misc.c phantglobs.c
-
-DPADD=	${LIBM} ${LIBCURSES} ${LIBTERMINFO}
-LDADD=	-lm -lcurses -lterminfo
-HIDEGAME=hidegame
-SETGIDGAME=yes
-USETBL=
 MAN=	phantasia.6
 
 FILESDIR=/var/games/phantasia
-FILESOWN=games
-FILESGRP=games
 FILESMODE=0660
 ALLFILES=gold lastdead mess monsters void motd characs scoreboard
 FILES=gold lastdead mess monsters void motd
-# don't overwrite existing characters or scorefile
-.for file in characs scoreboard
-.if !exists(${DESTDIR}${FILESDIR}/${file})
-FILES+=${file}
-.endif
-.endfor
 
-CLEANFILES+=map mkdata setup.lo host_phantglobs.lo ${ALLFILES} files.stamp
+CLEANFILES+=map mkdata $(ALLFILES) files.stamp
 
-realall: ${FILES}
+all: $(PROG) $(FILES)
 
-${FILES}: files.stamp
+$(FILES): files.stamp
 files.stamp: mkdata monsters.asc
-	${_MKMSG_CREATE} ${FILES}
-	rm -f ${.TARGET}
-	./mkdata -m ${.CURDIR}/monsters.asc
-	touch ${.TARGET}
+	rm -f files.stamp
+	./mkdata -m monsters.asc
+	touch files.stamp
 
-mkdata: host_phantglobs.lo setup.lo ${LIBM} 
-	${_MKTARGET_LINK}
-	${HOST_LINK.c} -o ${.TARGET} ${.ALLSRC:M*.lo} -lm
-
-BUILDSYMLINKS+=	phantglobs.c host_phantglobs.c
-HOST_CPPFLAGS+=	-I${.CURDIR}
+mkdata: phantglobs.c setup.c
+	clang -o mkdata phantglobs.c setup.c
 
 # Make Phantasia map.  Change the map commands reflect your installation.
 # PLOTDEVICE is used for plotting the map.  Change as appropriate.
 
 map: map.c
-	${CC} -O ${.CURDIR}/map.c -lplot -o ${.TARGET}
+	clang -o map map.c -lplot
 	./map | plot > /dev/tty
 
-.include <bsd.prog.mk>
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(STRIP) $(PROG)
 
-.if defined(HAVE_GCC) && ${MACHINE_ARCH} == "vax"
-COPTS.misc.c+=	-O0
-.endif
+$(ALLFILES): $(FILES)
+
+install: $(PROG) $(MAN) $(ALLFILES)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -d $(DESTDIR)$(FILESDIR)
+	$(GINSTALL) -Dm$(FILESMODE) $(ALLFILES) $(DESTDIR)$(FILESDIR)
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

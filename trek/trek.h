@@ -47,6 +47,8 @@
 
 /*********************  GALAXY  **************************/
 
+#include <float.h>
+
 /* galactic parameters */
 #define NSECTS		10	/* dimensions of quadrant in sectors */
 #define NQUADS		8	/* dimension of galazy in quadrants */

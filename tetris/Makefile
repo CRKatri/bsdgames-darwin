@@ -4,12 +4,19 @@
 PROG=	tetris
 SRCS=	input.c screen.c shapes.c scores.c tetris.c
 MAN=	tetris.6
-DPADD=	${LIBTERMINFO}
-LDADD=	-lterminfo
-HIDEGAME=hidegame
-SETGIDGAME=yes
 
-COPTS.tetris.c+=	${GCC_NO_FORMAT_TRUNCATION}
-COPTS.scores.c+=	${GCC_NO_FORMAT_TRUNCATION}
+all: $(PROG)
 
-.include <bsd.prog.mk>
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(STRIP) $(PROG)
+
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -d $(DESTDIR)/var/games
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

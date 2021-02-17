@@ -20,6 +20,7 @@ static void fsorry(void);
 static void fcheat(void);
 
 static struct tms cputime;
+time_t time(time_t *t);
 
 /*
 	***************************

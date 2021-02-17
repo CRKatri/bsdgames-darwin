@@ -4,16 +4,25 @@
 PROG=	adventure
 SRCS=	main.c init.c done.c save.c subr.c vocab.c wizard.c io.c data.c crc.c
 MAN=	adventure.6
-HIDEGAME=hidegame
-CLEANFILES+=mkdata setup.lo data.c
+CLEANFILES+=mkdata data.c
+
+all: $(PROG)
+
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS)
+	$(STRIP) $(PROG)
 
 data.c: glorkz mkdata
-	${_MKTARGET_CREATE}
-	./mkdata ${.CURDIR}/glorkz > data.c
+	./mkdata glorkz > data.c
 
-setup.lo: hdr.h
-mkdata: setup.lo
-	${_MKTARGET_LINK}
-	${HOST_LINK.c} -o ${.TARGET} ${.ALLSRC}
+mkdata: setup.c
+	clang -o mkdata setup.c
 
-.include <bsd.prog.mk>
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

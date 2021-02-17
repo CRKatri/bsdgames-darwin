@@ -7,13 +7,18 @@ SRCS=	battlestar.c command1.c command2.c command3.c command4.c \
 	init.c cypher.c getcom.c parse.c room.c save.c fly.c misc.c \
 	globals.c dayfile.c nightfile.c dayobjs.c nightobjs.c words.c
 MAN=	battlestar.6
-DPADD=	${LIBCURSES} ${LIBTERMINFO}
-LDADD=	-lcurses -lterminfo
-HIDEGAME=hidegame
-SETGIDGAME=yes
 
-.if !empty(MACHINE_ARCH:Msh3*)
-COPTS.parse.c+=-Wno-restrict
-.endif
+all: $(PROG)
 
-.include <bsd.prog.mk>
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(STRIP) $(PROG)
+
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

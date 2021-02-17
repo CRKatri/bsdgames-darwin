@@ -1,5 +1,13 @@
 #	$NetBSD: Makefile,v 1.1 1997/10/04 09:11:14 mrg Exp $
 
 SUBDIR=	hunt huntd
+TOPTARGETS= all clean install
+GAME_PARAM=	-DRANDOM -DREFLECT -DMONITOR -DOOZE -DFLY -DVOLCANO -DBOOTS \
+		-DOTTO
 
-.include <bsd.subdir.mk>
+$(TOPTARGETS): $(SUBDIR)
+
+$(SUBDIR): 
+	+EXTRADEFS="$(GAME_PARAM) -DINTERNET -DLOG" $(MAKE) -C $@ $(MAKECMDGOALS)
+
+.PHONY: $(TOPTARGETS) $(SUBDIR)

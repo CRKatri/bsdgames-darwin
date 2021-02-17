@@ -4,10 +4,19 @@
 PROG=	snake
 SRCS=	snake.c
 MAN=	snake.6
-DPADD=	${LIBM} ${LIBCURSES} ${LIBTERMINFO}
-LDADD=	-lm -lcurses -lterminfo
-HIDEGAME=hidegame
-SETGIDGAME=yes
 
-.include "../../Makefile.inc"
-.include <bsd.prog.mk>
+all: $(PROG)
+
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(STRIP) $(PROG)
+
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -d $(DESTDIR)/var/games
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

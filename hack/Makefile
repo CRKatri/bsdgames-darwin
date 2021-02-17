@@ -1,11 +1,7 @@
 #	$NetBSD: Makefile,v 1.47 2020/02/08 00:59:55 fox Exp $
 #	@(#)Makefile	8.2 (Berkeley) 4/27/95
 
-.include <bsd.own.mk>
-
 PROG=	hack
-CPPFLAGS+=-I.
-DPSRCS+=hack.onames.h hack.h
 SRCS+=	alloc.c hack.Decl.c hack.apply.c hack.bones.c hack.c hack.cmd.c \
 	hack.do.c hack.do_name.c hack.do_wear.c hack.dog.c hack.eat.c \
 	hack.end.c hack.engrave.c hack.fight.c hack.invent.c hack.ioctl.c \
@@ -18,44 +14,32 @@ SRCS+=	alloc.c hack.Decl.c hack.apply.c hack.bones.c hack.c hack.cmd.c \
 	hack.u_init.c hack.unix.c hack.vault.c hack.version.c hack.wield.c \
 	hack.wizard.c hack.worm.c hack.worn.c hack.zap.c rnd.c
 MAN=	hack.6
-DPADD+=	${LIBTERMINFO}
-LDADD+=	-lterminfo
-HIDEGAME=hidegame
-SETGIDGAME=yes
-CLEANFILES+=makedefs makedefs.lo
+CLEANFILES+=makedefs
 FILES=help hh data
 FILESDIR=/var/games/hackdir
-
 CLEANFILES+=hack.onames.h
-hack.onames.h: makedefs def.objects.h
-	${_MKTARGET_CREATE}
-	./makedefs ${.CURDIR}/def.objects.h > hack.onames.h
 
-makedefs: makedefs.lo
-	${_MKTARGET_LINK}
-	${HOST_LINK.c} -o ${.TARGET} ${.ALLSRC}
+all: $(PROG)
+
+hack.onames.h: makedefs def.objects.h
+	./makedefs def.objects.h > hack.onames.h
+
+makedefs: makedefs.c
+	clang -o makedefs makedefs.c
 
 hack.h:	hack.onames.h
 
-COPTS.hack.mon.c+=	-Wno-format-nonliteral
-COPTS.hack.rip.c+=	-Wno-format-nonliteral
-COPTS.hack.end.c+=	${GCC_NO_STRINGOP_TRUNCATION}
+$(PROG): $(SRCS) hack.h
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(STRIP) $(PROG)
 
-.if !exists(${DESTDIR}${FILESDIR}/perm)
-afterinstall: clobber
-.endif
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	mkdir -p $(DESTDIR)$(FILESDIR)
+	$(GINSTALL) -Dm660 $(FILES) $(DESTDIR)$(FILESDIR)
 
-clobber: 
-	${_MKMSG_INSTALL} ${DESTDIR}/var/games/hackdir/perm
-	${INSTALL_FILE} -o games -g games -m 660 /dev/null \
-	    ${DESTDIR}/var/games/hackdir/perm
-	${_MKMSG_INSTALL} ${DESTDIR}/var/games/hackdir/record
-	${INSTALL_FILE} -o games -g games -m 660 /dev/null \
-	    ${DESTDIR}/var/games/hackdir/record
-	${_MKMSG_REMOVE} "${DESTDIR}/var/games/hackdir/bones*"
-	rm -f ${DESTDIR}/var/games/hackdir/bones*
+clean:
+	rm -f $(CLEANFILES) $(PROG)
 
-COPTS.hack.objnam.c+=	${GCC_NO_STRINGOP_TRUNCATION} ${GCC_NO_STRINGOP_OVERFLOW}
-COPTS.hack.pager.c+=	${GCC_NO_STRINGOP_TRUNCATION}
-
-.include <bsd.prog.mk>
+.PHONY: all clean install

@@ -39,6 +39,7 @@ __RCSID("$NetBSD: connect.c,v 1.11 2014/03/30 05:30:28 dholland Exp $");
 #include <signal.h>
 #include <unistd.h>
 #include <assert.h>
+#include <sys/_endian.h>
 
 #include "hunt_common.h"
 #include "hunt_private.h"

@@ -54,6 +54,8 @@ __RCSID("$NetBSD: banner.c,v 1.21 2012/10/13 19:44:36 dholland Exp $");
 #include <string.h>
 #include <unistd.h>
 
+#include <sys/_types/_u_char.h>
+
 #define MAXMSG 1024
 #define DWIDTH 132
 #define NCHARS 128

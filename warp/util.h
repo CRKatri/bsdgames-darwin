@@ -6,6 +6,9 @@
  * 
  */
 
+#include <time.h>
+#define __UNCONST(a) ((void *)(unsigned long)(const void *)(a))
+
 #define RANDRAND 1152921504606846976.0 /* that's 2**60 */
 #define HALFRAND 0x40000000 /* that's 2**30 */
 #define myrand() (int)random()

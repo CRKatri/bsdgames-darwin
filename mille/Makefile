@@ -4,10 +4,19 @@
 PROG=	mille
 SRCS=	comp.c end.c extern.c init.c mille.c misc.c move.c print.c \
 	roll.c save.c types.c varpush.c
-DPADD=	${LIBCURSES} ${LIBTERMINFO}
-LDADD=	-lcurses -lterminfo
 MAN=	mille.6
-HIDEGAME=hidegame
 
-.include <bsd.prog.mk>
+all: $(PROG)
 
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(STRIP) $(PROG)
+
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

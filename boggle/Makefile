@@ -1,39 +1,29 @@
-#	$NetBSD: Makefile,v 1.22 2003/10/21 10:01:19 lukem Exp $
-#	@(#)Makefile	8.1 (Berkeley) 6/11/93
+all: dictionary dictindex boggle
 
-.include <bsd.own.mk>
+mkdict:
+	$(MAKE) -C mkdict
 
-SUBDIR=	boggle mkdict mkindex
+mkindex:
+	$(MAKE) -C mkindex
 
-MKDICTDIR!= cd $(.CURDIR)/mkdict; ${PRINTOBJDIR}
-MKDICT=${MKDICTDIR}/mkdict
-MKINDEXDIR!= cd $(.CURDIR)/mkindex; ${PRINTOBJDIR}
-MKINDEX=${MKINDEXDIR}/mkindex
-WORDS=${NETBSDSRCDIR}/share/dict/web2
-DICTFILES=dictionary dictindex
-.if ${MKSHARE} != "no"
-FILES=${DICTFILES}
-FILESDIR=/usr/share/games/boggle
-.endif
-CLEANFILES+=${DICTFILES}
+boggle:
+	$(MAKE) -C boggle 
 
-realall: ${FILES}
+clean:
+	rm -f dictionary dictindex
+	$(MAKE) -C mkdict clean
+	$(MAKE) -C mkindex clean
+	$(MAKE) -C boggle clean
 
-${MKDICT}:
-	@cd ${.CURDIR}/mkdict && ${MAKE}
+dictionary: mkdict
+	./mkdict/mkdict < mkdict/web2 > dictionary
 
-${MKINDEX}:
-	@cd ${.CURDIR}/mkindex && ${MAKE}
+dictindex: mkindex dictionary
+	./mkindex/mkindex < dictionary > dictindex
 
-dictionary: ${WORDS} ${MKDICT}
-	${_MKTARGET_CREATE}
-	rm -f ${.TARGET}
-	${MKDICT} < ${WORDS} > ${.TARGET}
+install: dictindex dictionary boggle
+	$(GINSTALL) -Dm644 dictionary $(DESTDIR)/usr/share/games/boggle/dictionary
+	$(GINSTALL) -Dm644 dictindex $(DESTDIR)/usr/share/games/boggle/dictindex
+	$(MAKE) -C boggle install
 
-dictindex: dictionary ${MKINDEX}
-	${_MKTARGET_CREATE}
-	rm -f ${.TARGET}
-	${MKINDEX} < dictionary > ${.TARGET}
-
-.include <bsd.prog.mk>
-.include <bsd.subdir.mk>
+.PHONY: all clean install mkdict mkindex boggle

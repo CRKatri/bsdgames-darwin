@@ -99,6 +99,7 @@ __RCSID("$NetBSD: machdep.c,v 1.20 2012/12/01 11:37:27 mbalmer Exp $");
 #include <sys/file.h>
 #include <sys/stat.h>
 #include <pwd.h>
+#include <time.h>
 
 #ifdef UNIX_BSD4_2
 #include <sys/time.h>

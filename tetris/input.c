@@ -48,6 +48,8 @@
 #include "input.h"
 #include "tetris.h"
 
+#define INFTIM (-1)
+
 /* return true iff the given timeval is positive */
 #define	TV_POS(tv) \
 	((tv)->tv_sec > 0 || ((tv)->tv_sec == 0 && (tv)->tv_usec > 0))

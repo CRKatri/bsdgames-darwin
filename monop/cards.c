@@ -39,7 +39,7 @@ __RCSID("$NetBSD: cards.c,v 1.27 2014/12/29 10:38:52 jnemeth Exp $");
 #endif /* not lint */
 
 #include <sys/types.h>
-#include <sys/endian.h>
+#include <sys/_endian.h>
 #include "monop.h"
 #include "deck.h"
 

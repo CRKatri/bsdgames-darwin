@@ -44,6 +44,8 @@ __RCSID("$NetBSD: crc.c,v 1.13 2012/01/08 18:16:00 dholland Exp $");
 
 #include "extern.h"
 
+#define __arraycount(a) (sizeof(a) / sizeof(*(a)))
+
 static const uint32_t crctab[256] = {
 	0x7fffffff,
 	0x77073096, 0xee0e612c, 0x990951ba, 0x076dc419, 0x706af48f,

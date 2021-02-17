@@ -34,6 +34,8 @@ __RCSID("$NetBSD: colorbars.c,v 1.1 2012/06/06 00:13:36 christos Exp $");
 #include <err.h>
 #include <stdlib.h>
 
+#define __arraycount(a) (sizeof(a) / sizeof(*(a)))
+
 int
 main(void)
 {

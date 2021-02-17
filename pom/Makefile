@@ -3,7 +3,19 @@
 
 PROG=	pom
 MAN=	pom.6
-DPADD=	${LIBM}
-LDADD=	-lm
+SRCS=	pom.c
 
-.include <bsd.prog.mk>
+all: $(PROG)
+
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS)
+	$(STRIP) $(PROG)
+
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

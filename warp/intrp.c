@@ -19,6 +19,8 @@
 #include "INTERN.h"
 #include "intrp.h"
 
+#define __UNCONST(a) ((void *)(unsigned long)(const void *)(a))
+
 /* name of this host */
     char *hostname;
 

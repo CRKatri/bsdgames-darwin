@@ -42,6 +42,8 @@ __RCSID("$NetBSD: ranf.c,v 1.7 2009/05/25 00:37:27 dholland Exp $");
 #include <stdlib.h>
 #include "trek.h"
 
+#define	RANDOM_MAX	0x7fffffff
+
 int
 ranf(int max)
 {

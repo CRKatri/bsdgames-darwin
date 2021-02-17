@@ -37,12 +37,15 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <time.h>
 
 #include "macros.h"
 #include "phantdefs.h"
 #include "phantstruct.h"
 #include "phantglobs.h"
 #include "pathnames.h"
+
+#define __unreachable() __builtin_unreachable()
 
 #undef bool
 #include <curses.h>

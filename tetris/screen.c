@@ -50,6 +50,8 @@
 #include <termios.h>
 #include <unistd.h>
 
+#include <termcap.h>
+
 #ifndef sigmask
 #define sigmask(s) (1 << ((s) - 1))
 #endif

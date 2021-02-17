@@ -55,26 +55,27 @@
 # NOLOG
 #	Turn off logging.
 
-.include <bsd.own.mk>
-
 PROG=	larn
 MAN=	larn.6
-CPPFLAGS+=-DBSD -DVER=12 -DSUBVER=0 -DNONAP -DUIDSCORE -DTERMIOS
+CPPFLAGS+=-DVER=12 -DSUBVER=0 -DNONAP -DUIDSCORE -DTERMIOS
 SRCS=	main.c object.c create.c tok.c display.c global.c data.c io.c \
 	monster.c store.c diag.c help.c config.c nap.c bill.c scores.c \
 	signal.c action.c moreobj.c movem.c regen.c fortune.c savelev.c
-DPADD=	${LIBTERMINFO}
-LDADD=	-lterminfo
-HIDEGAME=hidegame
-SETGIDGAME=yes
+FILES= datfiles/larn.help datfiles/larnmaze datfiles/larnopts
 
-.if ${MKSHARE} != "no"
-DAT=larnmaze larnopts larn.help
-FILES=${DAT:S@^@${.CURDIR}/datfiles/@g}
-FILESDIR=/usr/share/games/larn
-.endif
+all: $(PROG)
 
-COPTS.display.c += -Wno-format-nonliteral
-COPTS.monster.c += -Wno-format-nonliteral
+$(PROG): $(SRCS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(STRIP) $(PROG)
 
-.include <bsd.prog.mk>
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -d $(DESTDIR)/usr/share/games/larn
+	$(GINSTALL) -Dm644 $(FILES) $(DESTDIR)/usr/share/games/larn/
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

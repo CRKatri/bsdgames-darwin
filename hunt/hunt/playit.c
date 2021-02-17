@@ -53,6 +53,7 @@ __RCSID("$NetBSD: playit.c,v 1.25 2014/03/30 05:48:35 dholland Exp $");
 #define FREAD	1
 #endif
 
+#define INFTIM (-1)
 
 static int nchar_send;
 #ifdef OTTO

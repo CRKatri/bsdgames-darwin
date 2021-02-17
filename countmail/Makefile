@@ -4,4 +4,10 @@ SCRIPTS=	countmail
 SCRIPTSDIR=	/usr/games
 MAN=		countmail.6
 
-.include <bsd.prog.mk>
+all:
+
+install: $(PROG) $(MAN) $(SCRIPTS)
+	$(GINSTALL) -Dm755 $(SCRIPTS) $(DESTDIR)/usr/games/$(SCRIPTS)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+
+.PHONY: all install clean

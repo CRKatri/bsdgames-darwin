@@ -58,6 +58,8 @@
 #include "scores.h"
 #include "tetris.h"
 
+#include <libkern/OSByteOrder.h>
+
 /*
  * Allow updating the high scores unless we're built as part of /rescue.
  */
@@ -220,9 +222,9 @@ scorefile_probe(int sd)
 	}
 
 	/* None was a valid level; try opposite endian */
-	offset64 = bswap32(offset64);
-	offset60 = bswap32(offset60);
-	offset56 = bswap32(offset56);
+	offset64 = OSSwapInt32(offset64);
+	offset60 = OSSwapInt32(offset60);
+	offset56 = OSSwapInt32(offset56);
 
 	if (offset64 >= MINLEVEL && offset64 <= MAXLEVEL) {
 		/* 40-byte structure */
@@ -267,7 +269,7 @@ static int32_t
 read32(int32_t val, int doflip)
 {
 	if (doflip) {
-		val = bswap32(val);
+		val = OSSwapInt32(val);
 	}
 	return val;
 }
@@ -276,7 +278,7 @@ static int64_t
 read64(int64_t val, int doflip)
 {
 	if (doflip) {
-		val = bswap64(val);
+		val = OSSwapInt64(val);
 	}
 	return val;
 }

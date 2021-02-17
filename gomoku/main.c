@@ -62,6 +62,8 @@ __RCSID("$NetBSD: main.c,v 1.27 2016/06/12 02:15:26 dholland Exp $");
 #define PROGRAM	1		/* get input from program */
 #define INPUTF	2		/* get input from a file */
 
+#define LOGIN_NAME_MAX 73
+
 int	interactive = 1;	/* true if interactive */
 int	debug;			/* true if debugging */
 static int test;		/* both moves come from 1: input, 2: computer */

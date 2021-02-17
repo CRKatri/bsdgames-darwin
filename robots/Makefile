@@ -6,9 +6,19 @@ CPPFLAGS+=-DMAX_PER_UID=5
 SRCS=	auto.c extern.c init_field.c main.c make_level.c move.c move_robs.c \
 	play_level.c query.c rnd_pos.c score.c flush_in.c
 MAN=	robots.6
-DPADD=	${LIBCURSES} ${LIBTERMINFO}
-LDADD=	-lcurses -lterminfo
-HIDEGAME=hidegame
-SETGIDGAME=yes
 
-.include <bsd.prog.mk>
+all: $(PROG)
+
+$(PROG): $(SRCS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(STRIP) $(PROG)
+
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -d $(DESTDIR)/var/games
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

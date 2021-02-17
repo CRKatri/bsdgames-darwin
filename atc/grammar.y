@@ -67,6 +67,7 @@ __RCSID("$NetBSD: grammar.y,v 1.12 2015/06/19 06:02:31 dholland Exp $");
 #endif /* not lint */
 
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "def.h"
 #include "struct.h"
@@ -78,6 +79,11 @@ int line = 1;
 static int errors = 0;
 
 static int yyerror(const char *);
+static int checkdefs(void);
+static void check_point(int x, int y);
+static void check_edir(int x, int y, int dir);
+static void check_line(int px1, int py1, int px2, int py2);
+static void check_edge(int x, int y);
 %}
 
 %%

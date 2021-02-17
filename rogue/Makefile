@@ -6,15 +6,20 @@ CPPFLAGS+=-DUNIX
 SRCS=	hit.c init.c inventory.c level.c machdep.c main.c \
 	message.c monster.c move.c object.c pack.c play.c random.c ring.c \
 	room.c save.c score.c spec_hit.c throw.c trap.c use.c zap.c
-DPADD=	${LIBCURSES} ${LIBTERMINFO}
-LDADD=	-lcurses -lterminfo
-HIDEGAME=hidegame
-SETGIDGAME=yes
 MAN=	rogue.6
 
-SUBDIR.roff+=USD.doc
+all: $(PROG)
 
-COPTS.score.c+=	${GCC_NO_FORMAT_TRUNCATION}
+$(PROG): $(SRCS)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(STRIP) $(PROG)
 
-.include <bsd.prog.mk>
-.include <bsd.subdir.mk>
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -d $(DESTDIR)/var/games
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

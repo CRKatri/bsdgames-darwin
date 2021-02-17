@@ -37,6 +37,8 @@ static void eatcookie(void);
 static void quaff(void);
 static int whatitem(const char *);
 
+#define __unreachable() __builtin_unreachable()
+
 static char     copyright[] = "\nLarn is copyrighted 1986 by Noah Morgan.\n";
 int             srcount = 0;	/* line counter for showstr()	 */
 int             dropflag = 0;	/* if 1 then don't lookforobject() next round */

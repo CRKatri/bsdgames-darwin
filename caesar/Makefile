@@ -3,9 +3,22 @@
 
 PROG=	caesar
 MAN=	caesar.6
-DPADD=	${LIBM}
-LDADD=	-lm
-MLINKS=	caesar.6 rot13.6
 SCRIPTS=rot13.sh
+SRCS=	caesar.c
 
-.include <bsd.prog.mk>
+all: $(PROG)
+
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS)
+	$(STRIP) $(PROG)
+
+install: $(PROG) $(MAN) $(SCRIPTS)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm755 $(SCRIPTS) $(DESTDIR)/usr/games/$(basename $(SCRIPTS))
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(LN) -sf $(MAN).zst $(DESTDIR)/usr/share/man/man6/rot13.6
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

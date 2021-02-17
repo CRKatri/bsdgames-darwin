@@ -4,4 +4,10 @@
 SCRIPTS=wargames.sh
 MAN=	wargames.6
 
-.include <bsd.prog.mk>
+all:
+
+install: $(MAN) $(SCRIPTS)
+	$(GINSTALL) -Dm755 $(SCRIPTS) $(DESTDIR)/usr/games/$(basename $(SCRIPTS))
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+
+.PHONY: all install clean

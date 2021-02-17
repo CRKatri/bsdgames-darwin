@@ -39,7 +39,8 @@
 __RCSID("$NetBSD: prtable.c,v 1.10 2013/10/19 17:23:08 christos Exp $");
 #endif /* not lint */
 
-#include <curses.h>
+#include <ncurses.h>
+#define __USE(a) (/*LINTED*/(void)(a))
 
 #include "extern.h"
 

@@ -3,12 +3,18 @@
 PROG=	hunt
 SRCS=	connect.c hunt.c otto.c playit.c server.c
 MAN=	hunt.6
-LDADD=	-lcurses -lterminfo
-DPADD=	${LIBCURSES} ${LIBTERMINFO}
-HIDEGAME=hidegame
 
-CPPFLAGS+=-I${.CURDIR}/../include
+all: $(PROG)
 
-COPTS.hunt.c+=	${GCC_NO_STRINGOP_TRUNCATION}
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) $(EXTRADEFS) -I../include -lncursesw
+	$(STRIP) $(PROG)
 
-.include <bsd.prog.mk>
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

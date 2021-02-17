@@ -137,7 +137,7 @@ init(void)
 	poof();
 }
 
-__noinline char *
+char *
 decr(int a, int b, int c, int d, int e)
 {
 	static char buf[6];

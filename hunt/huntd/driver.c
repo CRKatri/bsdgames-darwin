@@ -54,6 +54,7 @@ __RCSID("$NetBSD: driver.c,v 1.35 2014/03/30 01:44:37 dholland Exp $");
 
 #include "hunt.h"
 #include "pathnames.h"
+#define INFTIM (-1)
 
 /*
  * There are three listening sockets in this daemon:
@@ -375,7 +376,7 @@ init(void)
 #ifdef TIOCNOTTY
 	(void) ioctl(fileno(stdout), TIOCNOTTY, NULL);
 #endif
-	(void) setpgrp(getpid(), getpid());
+	(void) setpgid(getpid(), getpid());
 	(void) signal(SIGHUP, SIG_IGN);
 	(void) signal(SIGINT, SIG_IGN);
 	(void) signal(SIGQUIT, SIG_IGN);

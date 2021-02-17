@@ -5,13 +5,17 @@ SRCS=	answer.c draw.c driver.c execute.c expl.c \
 	extern.c makemaze.c shots.c support.c terminal.c
 MAN=	huntd.6
 
-CPPFLAGS+=-I${.CURDIR}/../include
+all: $(PROG)
 
-.include <bsd.own.mk>
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) $(EXTRADEFS) -I../include
+	$(STRIP) $(PROG)
 
-# Has fallthru comment that is missed
-.if defined(HAVE_GCC) && ${HAVE_GCC} >= 7 && ${ACTIVE_CC} == "gcc"
-COPTS.shots.c+=        -Wno-error=implicit-fallthrough
-.endif
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
 
-.include <bsd.prog.mk>
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

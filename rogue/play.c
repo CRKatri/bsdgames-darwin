@@ -55,6 +55,8 @@ __RCSID("$NetBSD: play.c,v 1.10 2019/02/03 03:19:25 mrg Exp $");
 
 #include "rogue.h"
 
+#define	__unreachable()	__builtin_unreachable()
+
 boolean interrupted = 0;
 
 static const char unknown_command[] = "unknown command";

@@ -6,12 +6,19 @@ SRCS=	main.c pl_main.c pl_1.c pl_2.c pl_3.c pl_4.c pl_5.c pl_6.c pl_7.c \
 	dr_main.c dr_1.c dr_2.c dr_3.c dr_4.c dr_5.c lo_main.c \
 	assorted.c game.c globals.c misc.c parties.c sync.c array.c version.c
 MAN=	sail.6
-DPADD=	${LIBCURSES} ${LIBTERMINFO}
-LDADD=	-lcurses -lterminfo
-HIDEGAME=hidegame
-SETGIDGAME=yes
 
-COPTS.pl_7.c+=	-Wno-format-nonliteral
-COPTS.sync.c+=	-Wno-format-nonliteral
+all: $(PROG)
 
-.include <bsd.prog.mk>
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(STRIP) $(PROG)
+
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -d $(DESTDIR)/var/games
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

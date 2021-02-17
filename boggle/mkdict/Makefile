@@ -1,9 +1,9 @@
-#	$NetBSD: Makefile,v 1.13 2018/05/01 19:59:44 christos Exp $
-#	@(#)Makefile	8.1 (Berkeley) 6/11/93
+mkdict: mkdict.c
+	clang -o mkdict mkdict.c -I../boggle
 
-.include <bsd.hostinit.mk>
+clean:
+	rm -f mkdict
 
-HOSTPROG=	mkdict
-HOST_CPPFLAGS+=	-I${.CURDIR}/../boggle
+all: mkdict
 
-.include <bsd.hostprog.mk>
+.PHONY: all clean

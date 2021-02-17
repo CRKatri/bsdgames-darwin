@@ -48,6 +48,8 @@ __RCSID("$NetBSD: hunt.c,v 1.58 2014/03/30 09:11:50 skrll Exp $");
 #include <string.h>
 #include <unistd.h>
 #include <assert.h>
+#include <sys/_types/_socklen_t.h>
+#include <netdb.h>
 
 #include "hunt_common.h"
 #include "pathnames.h"
@@ -189,7 +191,7 @@ main(int ac, char **av)
 		case 'w':
 		case 'h':
 		case 'p':
-			wanrx("Need TCP/IP for S, q, w, h, and p options.");
+			warnx("Need TCP/IP for S, q, w, h, and p options.");
 			break;
 #endif
 		case 'c':

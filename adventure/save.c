@@ -54,6 +54,8 @@ __RCSID("$NetBSD: save.c,v 1.14 2014/03/22 22:04:40 dholland Exp $");
 #include "hdr.h"
 #include "extern.h"
 
+#define __arraycount(a) (sizeof(a) / sizeof(*(a)))
+
 struct savefile {
 	FILE *f;
 	const char *name;

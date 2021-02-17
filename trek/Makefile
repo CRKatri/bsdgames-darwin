@@ -11,13 +11,18 @@ SRCS=	abandon.c attack.c autover.c capture.c check_out.c checkcond.c \
 	shield.c snova.c srscan.c systemname.c torped.c \
 	visual.c warp.c win.c
 MAN=	trek.6
-DPADD=	${LIBM}
-LDADD=	-lm
-HIDEGAME=hidegame
 
-SUBDIR.roff+=USD.doc
+all: $(PROG)
 
-COPTS.getpar.c += -Wno-format-nonliteral
+$(PROG): $(SRCS)
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS)
+	$(STRIP) $(PROG)
 
-.include <bsd.prog.mk>
-.include <bsd.subdir.mk>
+install: $(PROG) $(MAN)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+
+clean:
+	rm -f $(CLEANFILES) $(PROG)
+
+.PHONY: all clean install

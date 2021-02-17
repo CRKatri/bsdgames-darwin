@@ -38,6 +38,8 @@ __RCSID("$NetBSD: scores.c,v 1.21 2012/06/19 05:30:44 dholland Exp $");
 #include "header.h"
 #include "extern.h"
 
+#include <time.h>
+
 struct scofmt {			/* This is the structure for the scoreboard 		 */
 	long            score;	/* the score of the player 							 */
 	long            suid;	/* the user id number of the player 				 */
