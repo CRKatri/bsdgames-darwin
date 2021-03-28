@@ -2,7 +2,7 @@
 
 PROG=	castching
 SRCS=	castching.c
-BINDIR=	/usr/libexec/ching
+BINDIR=	$(PREFIX)/libexec/ching
 
 all: $(PROG)
 
@@ -11,7 +11,7 @@ $(PROG): $(SRCS)
 	$(STRIP) $(PROG)
 
 install: $(PROG)
-	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/libexec/ching/$(PROG)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/$(BINDIR)/$(PROG)
 
 clean:
 	rm -f $(CLEANFILES) $(PROG)

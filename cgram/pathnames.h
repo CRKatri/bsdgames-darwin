@@ -27,4 +27,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define _PATH_FORTUNE "/usr/games/fortune"
+#include "config.h"
+
+#define _PATH_FORTUNE PREFIX"/games/fortune"

@@ -31,5 +31,7 @@
  *	@(#)pathnames.h	8.1 (Berkeley) 5/31/93
  */
 
-#define	_PATH_RAWSCORES	"/var/games/snakerawscores"
-#define	_PATH_LOGFILE	"/var/games/snake.log"
+#include "config.h"
+
+#define	_PATH_RAWSCORES	LOCALSTATEDIR"/games/snakerawscores"
+#define	_PATH_LOGFILE	LOCALSTATEDIR"/games/snake.log"

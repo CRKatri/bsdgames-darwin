@@ -35,4 +35,6 @@
  *	@(#)pathnames.h	8.1 (Berkeley) 5/31/93
  */
 
-#define	_PATH_HEX	"/usr/share/games/ching/hexagrams"
+#include "config.h"
+
+#define	_PATH_HEX	PREFIX"/share/games/ching/hexagrams"

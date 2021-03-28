@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>
-#include "config.h"
+#include "warp-config.h"
 
 int
 main(void)

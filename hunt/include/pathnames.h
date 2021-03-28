@@ -30,6 +30,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#define PATH_HUNTD	"/usr/games/huntd"
+#include "config.h"
+
+#define PATH_HUNTD	PREFIX"/games/huntd"
 #define PATH_HUNTSOCKET	"/tmp/hunt"
 #define PATH_STATSOCKET	"/tmp/hunt.stats"

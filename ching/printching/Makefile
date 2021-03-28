@@ -6,11 +6,11 @@ SRCS=	printching.c
 all: $(PROG)
 
 $(PROG): $(SRCS)
-	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) -I../include
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) -I../include -I$(ROOT)
 	$(STRIP) $(PROG)
 
 install: $(PROG)
-	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/libexec/ching/$(PROG)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/$(PREFIX)/libexec/ching/$(PROG)
 
 clean:
 	rm -f $(CLEANFILES) $(PROG)

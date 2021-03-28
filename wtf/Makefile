@@ -6,7 +6,7 @@ MAN=		wtf.6
 all:
 
 install: $(MAN) $(SCRIPTS)
-	$(GINSTALL) -Dm755 $(SCRIPTS) $(DESTDIR)/usr/games/$(basename $(SCRIPTS))
-	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -Dm755 $(SCRIPTS) $(DESTDIR)/$(PREFIX)/games/$(basename $(SCRIPTS))
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/$(PREFIX)/share/man/man6/$(MAN)
 
 .PHONY: all install clean

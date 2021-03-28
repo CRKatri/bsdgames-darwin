@@ -22,8 +22,8 @@ dictindex: mkindex dictionary
 	./mkindex/mkindex < dictionary > dictindex
 
 install: dictindex dictionary boggle
-	$(GINSTALL) -Dm644 dictionary $(DESTDIR)/usr/share/games/boggle/dictionary
-	$(GINSTALL) -Dm644 dictindex $(DESTDIR)/usr/share/games/boggle/dictindex
+	$(GINSTALL) -Dm644 dictionary $(DESTDIR)/$(PREFIX)/share/games/boggle/dictionary
+	$(GINSTALL) -Dm644 dictindex $(DESTDIR)/$(PREFIX)/share/games/boggle/dictindex
 	$(MAKE) -C boggle install
 
 .PHONY: all clean install mkdict mkindex boggle

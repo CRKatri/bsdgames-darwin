@@ -64,7 +64,7 @@
 #ifndef _DEF_OBJECTS_H_
 #define _DEF_OBJECTS_H_
 /* objects have letter " % ) ( 0 _ ` [ ! ? / = * */
-#include "config.h"
+#include "hack-config.h"
 #include "def.objclass.h"
 
 struct objclass objects[] = {

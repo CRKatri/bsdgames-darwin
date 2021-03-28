@@ -31,4 +31,6 @@
  *	@(#)pathnames.h	8.1 (Berkeley) 5/31/93
  */
 
-#define	_PATH_SCORE	"/var/games/battlestar.log"
+#include "config.h"
+
+#define	_PATH_SCORE	LOCALSTATEDIR"/games/battlestar.log"

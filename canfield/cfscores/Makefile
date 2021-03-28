@@ -7,11 +7,11 @@ SRCS=		cfscores.c
 all: $(PROG)
 
 $(PROG): $(SRCS)
-	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) -I../canfield
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) -I../canfield -I$(ROOT)
 	$(STRIP) $(PROG)
 
 install: $(PROG) $(MAN)
-	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
 
 clean:
 	rm -f $(CLEANFILES) $(PROG)

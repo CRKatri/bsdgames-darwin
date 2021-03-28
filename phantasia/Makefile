@@ -5,7 +5,7 @@ PROG=	phantasia
 SRCS=	fight.c gamesupport.c interplayer.c io.c main.c misc.c phantglobs.c
 MAN=	phantasia.6
 
-FILESDIR=/var/games/phantasia
+FILESDIR=$(LOCALSTATEDIR)/games/phantasia
 FILESMODE=0660
 ALLFILES=gold lastdead mess monsters void motd characs scoreboard
 FILES=gold lastdead mess monsters void motd
@@ -21,7 +21,7 @@ files.stamp: mkdata monsters.asc
 	touch files.stamp
 
 mkdata: phantglobs.c setup.c
-	clang -o mkdata phantglobs.c setup.c
+	clang -o mkdata phantglobs.c setup.c -I$(ROOT)
 
 # Make Phantasia map.  Change the map commands reflect your installation.
 # PLOTDEVICE is used for plotting the map.  Change as appropriate.
@@ -31,14 +31,14 @@ map: map.c
 	./map | plot > /dev/tty
 
 $(PROG): $(SRCS)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw -I$(ROOT)
 	$(STRIP) $(PROG)
 
 $(ALLFILES): $(FILES)
 
 install: $(PROG) $(MAN) $(ALLFILES)
-	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
-	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/$(PREFIX)/share/man/man6/$(MAN)
 	$(GINSTALL) -d $(DESTDIR)$(FILESDIR)
 	$(GINSTALL) -Dm$(FILESMODE) $(ALLFILES) $(DESTDIR)$(FILESDIR)
 

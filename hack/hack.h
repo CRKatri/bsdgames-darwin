@@ -64,7 +64,7 @@
 #ifndef _HACK_H_
 #define _HACK_H_
 
-#include "config.h"
+#include "hack-config.h"
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>

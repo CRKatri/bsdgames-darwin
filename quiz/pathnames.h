@@ -31,5 +31,7 @@
  *	@(#)pathnames.h	8.1 (Berkeley) 5/31/93
  */
 
-#define	_PATH_PAGER	"/usr/bin/more"
-#define	_PATH_QUIZIDX	"/usr/share/games/quiz.db/index"
+#include "config.h"
+
+#define	_PATH_PAGER	PREFIX"/bin/more"
+#define	_PATH_QUIZIDX	PREFIX"/share/games/quiz.db/index"

@@ -33,5 +33,7 @@
 
 #include <paths.h>
 
-#define	_PATH_GAMES	"/usr/share/games/atc/"
-#define	_PATH_SCORE	"/var/games/atc_score"
+#include "config.h"
+
+#define	_PATH_GAMES	PREFIX"/share/games/atc/"
+#define	_PATH_SCORE	LOCALSTATEDIR"/games/atc_score"

@@ -11,7 +11,7 @@ $(PROG): $(SRCS)
 	$(STRIP) $(PROG)
 
 install: $(PROG) $(MAN)
-	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
 
 clean:
 	rm -f $(CLEANFILES) $(PROG)

@@ -16,7 +16,7 @@ SRCS+=	alloc.c hack.Decl.c hack.apply.c hack.bones.c hack.c hack.cmd.c \
 MAN=	hack.6
 CLEANFILES+=makedefs
 FILES=help hh data
-FILESDIR=/var/games/hackdir
+FILESDIR=$(LOCALSTATEDIR)/games/hackdir
 CLEANFILES+=hack.onames.h
 
 all: $(PROG)
@@ -30,12 +30,12 @@ makedefs: makedefs.c
 hack.h:	hack.onames.h
 
 $(PROG): $(SRCS) hack.h
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw -I$(ROOT)
 	$(STRIP) $(PROG)
 
 install: $(PROG) $(MAN)
-	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
-	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/$(PREFIX)/share/man/man6/$(MAN)
 	mkdir -p $(DESTDIR)$(FILESDIR)
 	$(GINSTALL) -Dm660 $(FILES) $(DESTDIR)$(FILESDIR)
 

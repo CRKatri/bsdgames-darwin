@@ -6,7 +6,7 @@ SRCS=	extern.c graphics.c input.c list.c log.c \
 	main.c tunable.c update.c
 MAN=	atc.6
 FILES=${GAMES:S@^@${.CURDIR}/games/@g}
-FILESDIR=/usr/share/games/atc
+FILESDIR=$(PREFIX)/share/games/atc
 FILESMODE=644
 
 all: $(PROG)
@@ -14,16 +14,16 @@ all: $(PROG)
 $(PROG): $(SRCS) grammar.y lex.l
 	yacc -d grammar.y -o grammar.c
 	lex lex.l
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) grammar.c lex.yy.c -lncursesw $(LIBFLA)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) grammar.c lex.yy.c -lncursesw $(LIBFLA) -I$(ROOT)
 	$(STRIP) $(PROG)
 
 install: $(PROG) $(MAN)
-	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
-	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
-	mkdir -p $(DESTDIR)/usr/share/games
-	cp -r games $(DESTDIR)/usr/share/games/atc
-	chmod -R 644 $(DESTDIR)/usr/share/games/atc/*
-	mkdir -p $(DESTDIR)/var/games/
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/$(PREFIX)/share/man/man6/$(MAN)
+	mkdir -p $(DESTDIR)/$(PREFIX)/share/games
+	cp -r games $(DESTDIR)/$(PREFIX)/share/games/atc
+	chmod -R 644 $(DESTDIR)/$(PREFIX)/share/games/atc/*
+	mkdir -p $(DESTDIR)/$(LOCALSTATEDIR)/games/
 
 
 clean:

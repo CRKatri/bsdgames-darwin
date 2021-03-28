@@ -31,7 +31,9 @@
  *	@(#)pathnames.h	8.1 (Berkeley) 5/31/93
  */
 
-#define	_PATH_CONFIG	"/etc/dm.conf"
-#define	_PATH_HIDE	"/usr/games/hide/"
-#define	_PATH_LOG	"/var/log/games.log"
-#define	_PATH_NOGAMES	"/etc/nogames"
+#include "config.h"
+
+#define	_PATH_CONFIG	SYSCONFDIR"/dm.conf"
+#define	_PATH_HIDE	PREFIX"/games/hide/"
+#define	_PATH_LOG	LOCALSTATEDIR"/log/games.log"
+#define	_PATH_NOGAMES	SYSCONFDIR"/nogames"

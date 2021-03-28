@@ -1,5 +1,5 @@
 mkdict: mkdict.c
-	clang -o mkdict mkdict.c -I../boggle
+	clang -o mkdict mkdict.c -I../boggle -I$(ROOT)
 
 clean:
 	rm -f mkdict

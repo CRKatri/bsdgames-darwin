@@ -31,8 +31,10 @@
  *	@(#)pathnames.h	8.1 (Berkeley) 5/31/93
  */
 
-#define	_PATH_LOGFILE	"/var/games/saillog"
-#define	_PATH_SAILDIR	"/var/games/sail"
+#include "config.h"
+
+#define	_PATH_LOGFILE	LOCALSTATEDIR"/games/saillog"
+#define	_PATH_SAILDIR	LOCALSTATEDIR"/games/sail"
 
 /* in _PATH_SAILDIR */
 #define	_FILE_SYNC	"#sailsink.%d"

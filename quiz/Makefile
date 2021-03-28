@@ -9,17 +9,17 @@ CATS=	africa america areas arith asia babies bard chinese collectives \
 	midearth morse mult murders poetry posneg pres province seq-easy \
 	seq-hard sexes sov spell state trek ucc
 FILES= $(addprefix datfiles/,$(CATS))
-FILESDIR=/usr/share/games/quiz.db
+FILESDIR=$(PREFIX)/share/games/quiz.db
 
 all: $(PROG)
 
 $(PROG): $(SRCS)
-	$(CC) $(CFLAGS) -o $(PROG) $(SRCS)
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) -I$(ROOT)
 	$(STRIP) $(PROG)
 
 install: $(PROG) $(MAN)
-	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
-	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/$(PREFIX)/share/man/man6/$(MAN)
 	$(GINSTALL) -d $(DESTDIR)$(FILESDIR)
 	$(GINSTALL) -Dm644 $(FILES) $(DESTDIR)$(FILESDIR)
 

@@ -31,12 +31,14 @@
  *	@(#)pathnames.h	8.2 (Berkeley) 4/2/94
  */
 
-#define	_PATH_GAMEPROG	"/usr/games/phantasia"
-#define	_PATH_GOLD	"/var/games/phantasia/gold"
-#define	_PATH_LASTDEAD	"/var/games/phantasia/lastdead"
-#define	_PATH_MESS	"/var/games/phantasia/mess"
-#define	_PATH_MONST	"/var/games/phantasia/monsters"
-#define	_PATH_MOTD	"/var/games/phantasia/motd"
-#define	_PATH_PEOPLE	"/var/games/phantasia/characs"
-#define	_PATH_SCORE	"/var/games/phantasia/scoreboard"
-#define	_PATH_VOID	"/var/games/phantasia/void"
+#include "config.h"
+
+#define	_PATH_GAMEPROG	PREFIX"/games/phantasia"
+#define	_PATH_GOLD	LOCALSTATEDIR"/games/phantasia/gold"
+#define	_PATH_LASTDEAD	LOCALSTATEDIR"/games/phantasia/lastdead"
+#define	_PATH_MESS	LOCALSTATEDIR"/games/phantasia/mess"
+#define	_PATH_MONST	LOCALSTATEDIR"/games/phantasia/monsters"
+#define	_PATH_MOTD	LOCALSTATEDIR"/games/phantasia/motd"
+#define	_PATH_PEOPLE	LOCALSTATEDIR"/games/phantasia/characs"
+#define	_PATH_SCORE	LOCALSTATEDIR"/games/phantasia/scoreboard"
+#define	_PATH_VOID	LOCALSTATEDIR"/games/phantasia/void"

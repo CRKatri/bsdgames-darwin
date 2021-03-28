@@ -8,12 +8,12 @@ MAN=	huntd.6
 all: $(PROG)
 
 $(PROG): $(SRCS)
-	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) $(EXTRADEFS) -I../include
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) $(EXTRADEFS) -I../include -I$(ROOT)
 	$(STRIP) $(PROG)
 
 install: $(PROG) $(MAN)
-	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
-	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/$(PREFIX)/share/man/man6/$(MAN)
 
 clean:
 	rm -f $(CLEANFILES) $(PROG)

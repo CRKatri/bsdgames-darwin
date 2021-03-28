@@ -31,5 +31,7 @@
  *	@(#)pathnames.h	8.1 (Berkeley) 5/31/93
  */
 
-#define	_PATH_PAGER	"/usr/bin/more"
-#define	_PATH_WUMPINFO	"/usr/share/games/wump.info"
+#include "config.h"
+
+#define	_PATH_PAGER	PREFIX"/bin/more"
+#define	_PATH_WUMPINFO	PREFIX"/share/games/wump.info"

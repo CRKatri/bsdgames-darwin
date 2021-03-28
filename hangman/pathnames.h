@@ -31,4 +31,6 @@
  *	@(#)pathnames.h	8.1 (Berkeley) 5/31/93
  */
 
-#define	_PATH_DICT	"/usr/share/dict/words"
+#include "config.h"
+
+#define	_PATH_DICT	PREFIX"/share/dict/words"

@@ -7,11 +7,11 @@ SRCS=		snscore.c
 all: $(PROG)
 
 $(PROG): $(SRCS)
-	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) -I../snake
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) -I../snake -I$(ROOT)
 	$(STRIP) $(PROG)
 
 install: $(PROG) $(MAN)
-	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
 
 clean:
 	rm -f $(CLEANFILES) $(PROG)

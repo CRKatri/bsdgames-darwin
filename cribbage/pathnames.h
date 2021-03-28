@@ -31,6 +31,8 @@
  *	@(#)pathnames.h	8.1 (Berkeley) 5/31/93
  */
 
-#define	_PATH_INSTR	"/usr/share/games/cribbage.instr"
-#define	_PATH_LOG	"/var/games/criblog"
-#define	_PATH_MORE	"/usr/bin/more"
+#include "config.h"
+
+#define	_PATH_INSTR	PREFIX"/share/games/cribbage.instr"
+#define	_PATH_LOG	LOCALSTATEDIR"/games/criblog"
+#define	_PATH_MORE	PREFIX"/bin/more"

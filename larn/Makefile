@@ -66,14 +66,14 @@ FILES= datfiles/larn.help datfiles/larnmaze datfiles/larnopts
 all: $(PROG)
 
 $(PROG): $(SRCS)
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw -I$(ROOT)
 	$(STRIP) $(PROG)
 
 install: $(PROG) $(MAN)
-	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
-	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
-	$(GINSTALL) -d $(DESTDIR)/usr/share/games/larn
-	$(GINSTALL) -Dm644 $(FILES) $(DESTDIR)/usr/share/games/larn/
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/$(PREFIX)/share/man/man6/$(MAN)
+	$(GINSTALL) -d $(DESTDIR)/$(PREFIX)/share/games/larn
+	$(GINSTALL) -Dm644 $(FILES) $(DESTDIR)/$(PREFIX)/share/games/larn/
 
 clean:
 	rm -f $(CLEANFILES) $(PROG)

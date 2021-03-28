@@ -31,7 +31,9 @@
  *	@(#)pathnames.h	8.1 (Berkeley) 5/31/93
  */
 
-#define	_PATH_MAIL	"/usr/bin/mail"
-#define	_PATH_QUEST	"/var/games/questdir"
-#define	_PATH_HACK	"/var/games/hackdir"
+#include "config.h"
+
+#define	_PATH_MAIL	PREFIX"/bin/mail"
+#define	_PATH_QUEST	LOCALSTATEDIR"/games/questdir"
+#define	_PATH_HACK	LOCALSTATEDIR"/games/hackdir"
 

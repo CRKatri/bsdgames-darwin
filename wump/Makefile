@@ -5,17 +5,17 @@ PROG=	wump
 MAN=	wump.6
 SRCS=	wump.c
 FILES=wump.info
-FILESDIR=/usr/share/games
+FILESDIR=$(PREFIX)/share/games
 
 all: $(PROG)
 
 $(PROG): $(SRCS)
-	$(CC) $(CFLAGS) -o $(PROG) $(SRCS)
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) -I$(ROOT)
 	$(STRIP) $(PROG)
 
 install: $(PROG) $(MAN)
-	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
-	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/$(PREFIX)/share/man/man6/$(MAN)
 	$(GINSTALL) -Dm644 $(FILES) $(DESTDIR)$(FILESDIR)
 
 clean:

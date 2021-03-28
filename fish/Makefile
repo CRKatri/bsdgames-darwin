@@ -9,13 +9,13 @@ FILES=fish.instr
 all: $(PROG)
 
 $(PROG): $(SRCS)
-	$(CC) $(CFLAGS) -o $(PROG) $(SRCS)
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) -I$(ROOT)
 	$(STRIP) $(PROG)
 
 install: $(PROG) $(MAN)
-	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/bsd-$(PROG)
-	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/bsd-$(MAN)
-	$(GINSTALL) -Dm644 $(FILES) $(DESTDIR)/usr/share/games/bsd-$(FILES)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/$(PREFIX)/games/bsd-$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/$(PREFIX)/share/man/man6/bsd-$(MAN)
+	$(GINSTALL) -Dm644 $(FILES) $(DESTDIR)/$(PREFIX)/share/games/bsd-$(FILES)
 
 clean:
 	rm -f $(CLEANFILES) $(PROG)

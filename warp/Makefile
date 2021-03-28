@@ -11,17 +11,17 @@ CLEANFILES+=warp.6
 MAN=	warp.6
 
 FILES=smap.0 smap.1 smap.2 smap.3 smap.4 smap.5 smap.6 smap.7
-FILESDIR=/usr/share/games/warp
+FILESDIR=$(PREFIX)/share/games/warp
 
 all: $(PROG) $(MAN) $(FILES)
 
 $(PROG): $(SRCS)
-	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw -I$(ROOT)
 	$(STRIP) $(PROG)
 
 install: $(PROG) $(MAN) $(FILES)
-	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
-	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/usr/share/man/man6/$(MAN)
+	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN) $(DESTDIR)/$(PREFIX)/share/man/man6/$(MAN)
 	$(GINSTALL) -d $(DESTDIR)$(FILESDIR)
 	$(GINSTALL) -Dm644 $(FILES) $(DESTDIR)$(FILESDIR)
 
@@ -56,6 +56,6 @@ smap.7: smp.7 sm
 	./sm < smp.7 > $@
 
 sm: sm.c
-	clang -o $@ sm.c
+	clang -o $@ sm.c -I$(ROOT)
 
 .PHONY: all clean install

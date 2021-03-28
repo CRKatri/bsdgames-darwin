@@ -9,13 +9,13 @@ MAN5=	dm.conf.5
 all: $(PROG)
 
 $(PROG): $(SRCS)
-	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) -DSUPPORT_UTMPX
+	$(CC) $(CFLAGS) -o $(PROG) $(SRCS) -DSUPPORT_UTMPX -I$(ROOT)
 	$(STRIP) $(PROG)
 
 install: $(PROG) $(MAN)
-	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/usr/games/$(PROG)
-	$(GINSTALL) -Dm644 $(MAN8) $(DESTDIR)/usr/share/man/man8/$(MAN8)
-	$(GINSTALL) -Dm644 $(MAN5) $(DESTDIR)/usr/share/man/man5/$(MAN5)
+	$(GINSTALL) -Dm755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
+	$(GINSTALL) -Dm644 $(MAN8) $(DESTDIR)/$(PREFIX)/share/man/man8/$(MAN8)
+	$(GINSTALL) -Dm644 $(MAN5) $(DESTDIR)/$(PREFIX)/share/man/man5/$(MAN5)
 
 clean:
 	rm -f $(CLEANFILES) $(PROG)

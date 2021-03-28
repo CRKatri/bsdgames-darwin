@@ -31,5 +31,7 @@
  *	@(#)pathnames.h	8.1 (Berkeley) 5/31/93
  */
 
-#define	_PATH_SCOREFILE	"/var/games/rogue.scores"
+#include "config.h"
+
+#define	_PATH_SCOREFILE	LOCALSTATEDIR"/games/rogue.scores"
 #define _PATH_SCREENDUMP "rogue.screen"

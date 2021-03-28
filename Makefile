@@ -11,9 +11,24 @@ SUBDIR=	adventure arithmetic atc \
 	wargames warp worm worms wtf wump
 TOPTARGETS= all clean install
 
+PREFIX        ?= /usr
+LOCALSTATEDIR ?= /var
+SYSCONFDIR    ?= /etc
+ROOT          := $(shell pwd)
+
+export ROOT PREFIX LOCALSTATEDIR SYSCONFDIR
+
 $(TOPTARGETS): $(SUBDIR)
 
-$(SUBDIR):
-	$(MAKE) -C $@ $(MAKECMDGOALS)
+$(SUBDIR): config.h
+	+$(MAKE) -C $@ $(MAKECMDGOALS)
+
+config.h:
+	@echo "#define PREFIX \"$(PREFIX)\"" > config.h
+	@echo "#define LOCALSTATEDIR \"$(LOCALSTATEDIR)\"" >> config.h
+	@echo "#define SYSCONFDIR \"$(SYSCONFDIR)\"" >> config.h
+
+clean:
+	rm -f config.h
 
 .PHONY: $(TOPTARGETS) $(SUBDIR)

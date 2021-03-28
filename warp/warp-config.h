@@ -1,3 +1,5 @@
+#include "config.h"
+
 /* RDCHK:
  *	This symbol, if defined, indicates that the rdchk routine is available
  *	to find out if there is input pending on an IO channel.  Generally
@@ -83,7 +85,7 @@
  *	This symbol contains the full name of the preferred user shell on this
  *	system.  Usual values are /bin/csh, /bin/ksh, /bin/sh.
  */
-#define PREFSHELL "/bin/csh"		/**/
+#define PREFSHELL "/bin/sh"		/**/
 
 /* ROOTID:
  *	This symbol contains the uid of root, normally 0.
@@ -113,4 +115,4 @@
 #endif
 
 /* warp private library, may use ~ expansion, %x and %l */
-#define PRIVLIB "/usr/share/games/warp"		/**/
+#define PRIVLIB PREFIX"/share/games/warp"		/**/
