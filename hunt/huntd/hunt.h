@@ -40,6 +40,7 @@
 #include <sys/types.h>
 #include <sys/uio.h>
 #include <sys/poll.h>
+#include <_types/_uint32_t.h>
 
 #include "hunt_common.h"
 
