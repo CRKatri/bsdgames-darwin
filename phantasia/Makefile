@@ -34,7 +34,7 @@ $(PROG): $(SRCS)
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $(PROG) $(SRCS) -lncursesw -I$(ROOT)
 	$(STRIP) $(PROG)
 
-$(ALLFILES): $(FILES)
+$(ALLFILES): files.stamp
 
 install: $(PROG) $(MAN) $(ALLFILES)
 	$(GINSTALL) -Dm2755 $(PROG) $(DESTDIR)/$(PREFIX)/games/$(PROG)
