@@ -28,7 +28,21 @@ config.h:
 	@echo "#define LOCALSTATEDIR \"$(LOCALSTATEDIR)\"" >> config.h
 	@echo "#define SYSCONFDIR \"$(SYSCONFDIR)\"" >> config.h
 
+update:
+	TEMP=$$(mktemp -d); \
+	cd ~/Documents/BSD/NetBSD; \
+	git format-patch -o $$TEMP $(shell cat upstream-commit) games; \
+	git rev-list HEAD -1 games/ > $(ROOT)/upstream-commit; \
+	cd $(ROOT); \
+	for patch in $$TEMP/*.patch; do \
+		if [ "$$(filterdiff -x '*/Makefile' --strip=1 $$patch --clean)" = "" ]; then \
+			echo "Skipping $$(basename $$patch) because it's empty"; \
+		else \
+			filterdiff -x '*/Makefile' --strip=1 $$patch | git am; \
+		fi; \
+	done
+
 clean:
 	rm -f config.h
 
-.PHONY: $(TOPTARGETS) $(SUBDIR)
+.PHONY: $(TOPTARGETS) $(SUBDIR) update
