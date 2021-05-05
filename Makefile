@@ -30,7 +30,7 @@ config.h:
 
 update:
 	TEMP=$$(mktemp -d); \
-	cd ~/Documents/BSD/NetBSD; \
+	cd ~/Documents/NetBSD; \
 	git format-patch -o $$TEMP $(shell cat upstream-commit) games; \
 	git rev-list HEAD -1 games/ > $(ROOT)/upstream-commit; \
 	cd $(ROOT); \
